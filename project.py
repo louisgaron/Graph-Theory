@@ -24,10 +24,6 @@ def shunt(infix):
 		pofix, stack = pofix + stack[-1], stack[:-1]
 
 	return pofix
-	
-#print(shunt("(a.b)|(c*.d)"))
-
-
 
 #======================Thomson Constructions========================
 class state:
@@ -59,7 +55,6 @@ def compile(pofix):
 			newnfa = nfa(nfa1.initial, nfa2.accept)
 			nfastack.append(newnfa)
 				
-		#//////////////////////////////////////		
 		elif c == '|':
 		
 			# Pop two NFA's off the stack
@@ -103,10 +98,7 @@ def compile(pofix):
 			newnfa = nfa(initial,accept)
 			nfastack.append(newnfa)
 		
-		#/////////////////////////////////////////////
 		else:
-			# Create new initial adn accept states.
-				
 			accept = state()
 			initial = state()
 				
@@ -114,11 +106,9 @@ def compile(pofix):
 			initial.label = c
 			initial.edge1 = accept
 				
-				# Push new NFA to the stack.
 			newnfa = nfa(initial, accept)
 			nfastack.append(newnfa)
-				
-				# nfastack should only have a single nfa on it at this point.
+			
 	return nfastack.pop()
 	
 
@@ -161,6 +151,3 @@ strings = ["", "abc", "abbc", "abcc", "abad", "abbbc"]
 for i in infixes:
 	for s in strings:
 		print(match(i, s), i, s)
-	
-#print(compile("ab.cd.|"))
-#print(compile("aa.*"))
